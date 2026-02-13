@@ -7,10 +7,10 @@ export type UserResponseDTO = Omit<User, 'password'>
 
 export class UserRepository {
 
-    private prisma : PrismaClient;
 
-    constructor(){
-        this.prisma = container.get(Modules.Prisma)
+    constructor(
+        private prisma : PrismaClient
+    ){
     }
 
     async findById(id : number) : Promise<UserResponseDTO | undefined>{

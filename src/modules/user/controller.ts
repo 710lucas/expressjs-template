@@ -7,7 +7,7 @@ import { BaseError } from "@/types/BaseError";
 export class UserController{
 
     constructor(
-        private userService : UserService = container.get(Modules.UserService)
+        private userService : UserService
     ){}
 
     async create(body : any) : Promise<UserResponseDTO | undefined>{

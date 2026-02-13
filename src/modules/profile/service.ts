@@ -5,7 +5,7 @@ import { Modules } from "@/IOC/ContainerModules";
 export class ProfileService {
 
     constructor(
-        private profileRepository : ProfileRepository = container.get(Modules.ProfileRepository)
+        private profileRepository : ProfileRepository 
     ){}
 
     async create(createDTO : ProfileCreateDTO) {

@@ -8,7 +8,7 @@ import { BaseError } from "@/types/BaseError";
 export class ProfileController{
 
     constructor(
-        private profileService : ProfileService = container.get(Modules.ProfileService)
+        private profileService : ProfileService 
     ){}
 
     async create(body : any) : Promise<Profile | undefined> {

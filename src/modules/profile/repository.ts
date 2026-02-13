@@ -7,10 +7,9 @@ export type ProfileUpdateDTO = ProfileCreateDTO;
 
 export class ProfileRepository{
 
-    private prisma : PrismaClient;
-
-    constructor(){
-        this.prisma = container.get(Modules.Prisma)
+    constructor(
+        private prisma :  PrismaClient
+    ){
     }
 
     async create(profile : ProfileCreateDTO) : Promise<Profile | undefined> {

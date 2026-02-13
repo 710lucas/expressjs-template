@@ -5,7 +5,7 @@ import { UserCreateDTO, UserRepository } from "./repository";
 export class UserService {
 
     constructor(
-        private userRepository : UserRepository = container.get(Modules.UserRepository)
+        private userRepository : UserRepository
     ){}
 
     async create(createDto : UserCreateDTO){

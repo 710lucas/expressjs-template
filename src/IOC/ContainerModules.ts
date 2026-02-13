@@ -12,12 +12,12 @@ import { UserController } from '@/modules/user/controller';
 export function InitModules(){
 
     const prisma = new PrismaClient({adapter: new PrismaPg(process.env.DATABASE_URL)})
-    const userRepository = new UserRepository();
-    const userService = new UserService();
-    const userController = new UserController();
-    const profileRepository = new ProfileRepository();
-    const profileService = new ProfileService();
-    const profileController = new ProfileController();
+    const userRepository = new UserRepository(prisma);
+    const userService = new UserService(userRepository);
+    const userController = new UserController(userService);
+    const profileRepository = new ProfileRepository(prisma);
+    const profileService = new ProfileService(profileRepository);
+    const profileController = new ProfileController(profileService);
 
 
     container.register(Modules.Prisma, prisma);
