@@ -1,8 +1,8 @@
-import { container } from "@/IOC/Container";
-import { Modules } from "@/IOC/ContainerModules";
 import { UserCreateDTO, UserResponseDTO } from "./repository";
 import { UserService } from "./service";
 import { BaseError } from "@/types/BaseError";
+import { z } from "zod";
+import { StatusCodes } from "http-status-codes";
 
 export class UserController{
 
@@ -11,7 +11,13 @@ export class UserController{
     ){}
 
     async create(body : any) : Promise<UserResponseDTO | undefined>{
-        const createDto = body as UserCreateDTO;
+        const userSchema = z.object({
+            email: z.string().email(),
+            name: z.string().min(3),
+            password: z.string().min(6)
+        });
+        
+        const createDto = userSchema.parse(body);
         return await this.userService.create(createDto);
     }
 
@@ -22,13 +28,19 @@ export class UserController{
     async getById(id : number) : Promise<UserResponseDTO | undefined>{
         const user = this.userService.findById(id);
 
-        if(user === undefined) throw new BaseError(400, `Usuário com ID ${id} não encontrado`);
+        if(user === undefined) throw new BaseError(StatusCodes.BAD_REQUEST, `Usuário com ID ${id} não encontrado`);
 
         return (user);
     }
 
     async update(body : any, id : number) : Promise<UserResponseDTO | undefined>{
-        const updatePayload = body as UserCreateDTO;
+        const userSchema = z.object({
+            email: z.string().email().optional(),
+            name: z.string().min(3).optional(),
+            password: z.string().min(6).optional()
+        });
+
+        const updatePayload = userSchema.parse(body);
 
         const user = this.userService.update(updatePayload, id);
 

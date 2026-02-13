@@ -1,6 +1,4 @@
 import { PrismaClient, User } from "@/generated/prisma/client";
-import { container } from "@/IOC/Container";
-import { Modules } from "@/IOC/ContainerModules";
 
 export type UserCreateDTO = Omit<User, 'id'>
 export type UserResponseDTO = Omit<User, 'password'>

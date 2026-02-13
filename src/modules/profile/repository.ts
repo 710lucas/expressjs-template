@@ -1,5 +1,3 @@
-import { container } from "@/IOC/Container";
-import { Modules } from "@/IOC/ContainerModules";
 import {PrismaClient, Profile} from '@/generated/prisma/client'
 
 export type ProfileCreateDTO = Omit<Profile, 'id'>

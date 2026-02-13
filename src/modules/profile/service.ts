@@ -1,6 +1,4 @@
-import { container } from "@/IOC/Container";
 import { ProfileCreateDTO, ProfileRepository, ProfileUpdateDTO } from "./repository";
-import { Modules } from "@/IOC/ContainerModules";
 
 export class ProfileService {
 

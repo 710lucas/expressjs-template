@@ -1,5 +1,3 @@
-import { container } from "@/IOC/Container";
-import { Modules } from "@/IOC/ContainerModules";
 import { UserCreateDTO, UserRepository } from "./repository";
 
 export class UserService {

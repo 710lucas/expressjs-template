@@ -1,9 +1,9 @@
-import { Modules } from "@/IOC/ContainerModules";
 import { ProfileService } from "./service";
-import { container } from "@/IOC/Container";
 import { Profile } from "@/generated/prisma/client";
 import { ProfileCreateDTO, ProfileUpdateDTO } from "./repository";
 import { BaseError } from "@/types/BaseError";
+import { z } from "zod";
+import { StatusCodes } from "http-status-codes";
 
 export class ProfileController{
 
@@ -12,7 +12,12 @@ export class ProfileController{
     ){}
 
     async create(body : any) : Promise<Profile | undefined> {
-        const createDTO = body as ProfileCreateDTO;
+        const profileSchema = z.object({
+            bio: z.string().optional(),
+            userId: z.number().int()
+        });
+
+        const createDTO = profileSchema.parse(body);
         return await this.profileService.create(createDTO);
     }
 
@@ -23,7 +28,7 @@ export class ProfileController{
     async getById(id : number) : Promise<Profile | undefined> {
         const profile = this.profileService.findById(id);
 
-        if(profile === undefined) throw new BaseError(400, `Perfil com ID ${id} não encontrado`);
+        if(profile === undefined) throw new BaseError(StatusCodes.BAD_REQUEST, `Perfil com ID ${id} não encontrado`);
 
         return profile;
     }
